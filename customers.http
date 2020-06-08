@@ -1,0 +1,29 @@
+
+### Create wallet
+POST http://localhost:8080/wallets
+Content-Type: application/json
+
+{
+  "wallet": {
+    "type" : "PREPAID",
+    "currency": "PEN",
+    "description": "Wallet Prepago",
+    "customer": {
+      "id": 12345
+    }
+  }
+}
+
+###
+siege -r 2 -c 100 -d 1  -v -H "X-Api-Force-Sync: false" --content-type 'application/json' "http://localhost:8080/wallets POST {
+  \"wallet\": {
+   \"customer\": {
+     \"id\": 12345
+   },
+   \"type\" : \"PREPAID\",
+   \"currency\": \"PEN\",
+   \"description\": \"Wallet Prepago\"
+  }
+}"
+
+###
